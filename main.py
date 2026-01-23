@@ -80,8 +80,11 @@ class LuoguAPI(object):
 
 
 if __name__ == "__main__":
-    with open("config.json", "r", encoding="utf-8") as f:
-        config = json.load(f)
+    try:
+        with open("config.json", "r", encoding="utf-8") as f:
+            config = json.load(f)
+    except FileNotFoundError:
+        config = {}
 
     user = input("Enter user name: ")
     api = LuoguAPI(
