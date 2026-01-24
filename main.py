@@ -6,7 +6,7 @@ from luogu import LuoguAPI
 
 
 if __name__ == "__main__":
-    user = input("Enter user name: ")
+    user = input("Enter user (name or uid): ")
     api = LuoguAPI(
         uid=config.uid,
         client_id=config.client_id,
