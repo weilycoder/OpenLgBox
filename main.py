@@ -1,19 +1,15 @@
 import json
 
+import config
+
 from luogu import LuoguAPI
 
 
 if __name__ == "__main__":
-    try:
-        with open("./config/config.json", "r", encoding="utf-8") as f:
-            config = json.load(f)
-    except FileNotFoundError:
-        config = {}
-
     user = input("Enter user name: ")
     api = LuoguAPI(
-        uid=config.get("uid"),
-        client_id=config.get("client_id"),
+        uid=config.uid,
+        client_id=config.client_id,
     )
     user_id, user_name = api.search_user(user)
     data = api.get_user_achievements(user_id)
