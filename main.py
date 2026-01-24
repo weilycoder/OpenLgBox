@@ -5,7 +5,7 @@ from luogu import LuoguAPI
 
 if __name__ == "__main__":
     try:
-        with open("config.json", "r", encoding="utf-8") as f:
+        with open("./config/config.json", "r", encoding="utf-8") as f:
             config = json.load(f)
     except FileNotFoundError:
         config = {}
