@@ -87,13 +87,15 @@ class LuoguAPI(object):
         else:
             raise ValueError("Could not find the required script tag in the HTML.")
 
-    def get_user_achievements(self, target: int) -> dict[str, Any]:
+    def get_user_achievements(
+        self, target: int
+    ) -> tuple[int, int, list[tuple[str, str, Optional[int], Optional[int]]]]:
         user_data = self.fetch_user_data(target)
-        return {
-            "ccfLevel": user_data["user"]["ccfLevel"],
-            "xcpcLevel": user_data["user"]["xcpcLevel"],
-            "prizes": prizes_format(user_data["prizes"]),
-        }
+        return (
+            user_data["user"]["ccfLevel"],
+            user_data["user"]["xcpcLevel"],
+            prizes_format(user_data["prizes"]),
+        )
 
     def search_user(self, target: str) -> tuple[int, str]:
         url = f"https://www.luogu.com.cn/api/user/search?keyword={target}"

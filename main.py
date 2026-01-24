@@ -10,10 +10,10 @@ if __name__ == "__main__":
         client_id=config.client_id,
     )
     user_id, user_name = api.search_user(user)
-    data = api.get_user_achievements(user_id)
+    ccfLevel, xcpcLevel, prizes = api.get_user_achievements(user_id)
 
     print(f"User ID: {user_id}")
     print(f"User Name: {user_name}")
-    print(f"ccfLevel: {data['ccfLevel']}")
-    print(f"xcpcLevel: {data['xcpcLevel']}")
-    print(data["prizes"])
+    print(f"ccfLevel: {ccfLevel}")
+    print(f"xcpcLevel: {xcpcLevel}")
+    print(prizes)
