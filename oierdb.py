@@ -32,6 +32,19 @@ class Record(object):
             f"award_level={self.award_level})"
         )
 
+    def check(
+        self, name: str, prize: str, score: Optional[int], rank: Optional[int]
+    ) -> bool:
+        if name != self.contest:
+            return False
+        if prize != self.award_level:
+            return False
+        if score is not None and self.score != score:
+            return False
+        if rank is not None and self.rank != rank:
+            return False
+        return True
+
 
 class Oier(object):
     def __init__(self, data: list[str], contest_names: list[str]):
