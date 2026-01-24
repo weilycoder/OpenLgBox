@@ -8,7 +8,9 @@ from bs4 import BeautifulSoup
 from util import alias_luogu_contests
 
 
-def prizes_format(prizes: list[dict]) -> list[tuple[str, str, int, int]]:
+def prizes_format(
+    prizes: list[dict],
+) -> list[tuple[str, str, Optional[int], Optional[int]]]:
     formatted_prizes = []
     for prize in prizes:
         data = prize.get("prize", {})
@@ -20,8 +22,8 @@ def prizes_format(prizes: list[dict]) -> list[tuple[str, str, int, int]]:
             (
                 f"{contest_name}-{contest_year}",
                 data.get("prize", ""),
-                data.get("score", -1),
-                data.get("rank", -1),
+                data.get("score", None),
+                data.get("rank", None),
             )
         )
     return formatted_prizes
