@@ -1,5 +1,3 @@
-import json
-
 import config
 
 from luogu import LuoguAPI
@@ -18,4 +16,4 @@ if __name__ == "__main__":
     print(f"User Name: {user_name}")
     print(f"ccfLevel: {data['ccfLevel']}")
     print(f"xcpcLevel: {data['xcpcLevel']}")
-    print(json.dumps(data["prizes"], indent=4, ensure_ascii=False))
+    print(data["prizes"])

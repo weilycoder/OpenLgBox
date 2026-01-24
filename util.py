@@ -49,3 +49,11 @@ award_levels = [
     "前15%",
     "前25%",
 ]
+
+alias_luogu_contests = {
+    "CSP-J": "CSP入门",
+    "CSP-S": "CSP提高",
+    "NOI 冬令营": "WC",
+    "NOIP 提高组": "NOIP提高",
+    "NOIP 普及组": "NOIP普及",
+}

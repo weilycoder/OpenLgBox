@@ -5,6 +5,27 @@ from typing import Any, Optional
 
 from bs4 import BeautifulSoup
 
+from util import alias_luogu_contests
+
+
+def prizes_format(prizes: list[dict]) -> list[tuple[str, str, int, int]]:
+    formatted_prizes = []
+    for prize in prizes:
+        data = prize.get("prize", {})
+        contest_name = data.get("contest", "UKContest")
+        contest_year = data.get("year", "UKYear")
+        if contest_name in alias_luogu_contests:
+            contest_name = alias_luogu_contests[contest_name]
+        formatted_prizes.append(
+            (
+                f"{contest_name}-{contest_year}",
+                data.get("prize", ""),
+                data.get("score", -1),
+                data.get("rank", -1),
+            )
+        )
+    return formatted_prizes
+
 
 class LuoguAPI(object):
     def __init__(
@@ -69,7 +90,7 @@ class LuoguAPI(object):
         return {
             "ccfLevel": user_data["user"]["ccfLevel"],
             "xcpcLevel": user_data["user"]["xcpcLevel"],
-            "prizes": user_data["prizes"],
+            "prizes": prizes_format(user_data["prizes"]),
         }
 
     def search_user(self, target: str) -> tuple[int, str]:
