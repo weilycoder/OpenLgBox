@@ -123,7 +123,7 @@ class OierDB(object):
             with open(contest_file, "r", encoding="utf-8") as f:
                 contest_json = json.load(f)
                 for contest in contest_json:
-                    self.contests.append(contest["name"])
+                    self.contests.append(f"{contest['type']}-{contest['year']}")
         self.oiers: list[Oier] = []
         if oier_file is not None:
             with open(oier_file, "r", encoding="utf-8") as f:
