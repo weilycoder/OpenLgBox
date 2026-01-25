@@ -1,5 +1,7 @@
 import argparse
 
+import rich
+
 import config
 
 from luogu import LuoguAPI
@@ -18,12 +20,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
     initials = None if args.initials is None else args.initials.split(",")
     if args.uid is not None:
-        if args.client_id is not None:
-            print("Warning: Overriding config.uid with command line argument.")
+        if args.uid is not None:
+            rich.print("[yellow][i]Warning: Overriding config.uid with command line argument.[/i][/yellow]")
         config.uid = args.uid
     if args.client_id is not None:
         if args.client_id is not None:
-            print("Warning: Overriding config.client_id with command line argument.")
+            rich.print("[yellow][i]Warning: Overriding config.client_id with command line argument.[/i][/yellow]")
         config.client_id = args.client_id
 
     api = LuoguAPI(
@@ -33,18 +35,18 @@ if __name__ == "__main__":
     user_id, user_name = api.search_user(args.user)
     ccfLevel, xcpcLevel, prizes = api.get_user_achievements(user_id)
 
-    print(f"User ID: {user_id}")
-    print(f"User Name: {user_name}")
-    print(f"ccfLevel: {ccfLevel}")
-    print(f"xcpcLevel: {xcpcLevel}")
-    print(f"prizes: {prizes}")
+    rich.print(f"User ID: {user_id}")
+    rich.print(f"User Name: {user_name}")
+    rich.print(f"ccfLevel: {ccfLevel}")
+    rich.print(f"xcpcLevel: {xcpcLevel}")
+    rich.print(f"prizes: {prizes}")
 
     if not args.only_search:
-        print("Removing contest which are not in OIERDB...")
+        rich.print("Removing contest which are not in OIERDB...")
         prizes = [prize for prize in prizes if prize[0] in oierdb.contest_names]
-        print(f"Remaining prizes: {prizes}")
+        rich.print(f"Remaining prizes: {prizes}")
 
-        print("Filtering OIERDB records...")
+        rich.print("Filtering OIERDB records...")
         leave = list(
             filter(
                 lambda oier: oier.ccf_level >= ccfLevel
@@ -55,6 +57,6 @@ if __name__ == "__main__":
             )
         )
         leave.sort(key=lambda oier: (len(oier.records), -oier.oierdb_score))
-        print(f"Found {len(leave)} matching records:")
+        rich.print(f"Found {len(leave)} matching records:")
         for oier in leave:
-            print("*", oier.uid, oier.initials, oier.name, oier.ccf_level, sep=" ")
+            rich.print("*", oier.uid, oier.initials, oier.name, oier.ccf_level)
