@@ -10,18 +10,19 @@ from util import alias_luogu_contests
 
 def prizes_format(
     prizes: list[dict],
-) -> list[tuple[str, str, Optional[int], Optional[int]]]:
-    formatted_prizes = []
+) -> list[tuple[Optional[str], Optional[int], Optional[str], Optional[float], Optional[int]]]:
+    formatted_prizes: list[tuple[Optional[str], Optional[int], Optional[str], Optional[float], Optional[int]]] = []
     for prize in prizes:
         data = prize.get("prize", {})
-        contest_name = data.get("contest", "UKContest")
-        contest_year = data.get("year", "UKYear")
+        contest_name = data.get("contest", None)
+        contest_year = data.get("year", None)
         if contest_name in alias_luogu_contests:
             contest_name = alias_luogu_contests[contest_name]
         formatted_prizes.append(
             (
-                f"{contest_name}-{contest_year}",
-                data.get("prize", ""),
+                contest_name,
+                contest_year,
+                data.get("prize", None),
                 data.get("score", None),
                 data.get("rank", None),
             )
@@ -43,9 +44,7 @@ class LuoguAPI(object):
         self.headers = (
             headers
             if headers is not None
-            else {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-            }
+            else {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
         )
 
         self.uid = uid
@@ -89,7 +88,7 @@ class LuoguAPI(object):
 
     def get_user_achievements(
         self, target: int
-    ) -> tuple[int, int, list[tuple[str, str, Optional[int], Optional[int]]]]:
+    ) -> tuple[int, int, list[tuple[Optional[str], Optional[int], Optional[str], Optional[float], Optional[int]]]]:
         user_data = self.fetch_user_data(target)
         return (
             user_data["user"]["ccfLevel"],

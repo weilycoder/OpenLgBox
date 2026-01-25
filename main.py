@@ -18,9 +18,9 @@ if __name__ == "__main__":
     print(f"ccfLevel: {ccfLevel}")
     print(f"xcpcLevel: {xcpcLevel}")
     print(f"prizes: {prizes}")
-    
+
     print("\nRemoving contest which are not in OIERDB...")
-    prizes = [prize for prize in prizes if prize[0] in oierdb.contests]
+    prizes = [prize for prize in prizes if prize[0] in oierdb.contest_names]
     print(f"Remaining prizes: {prizes}")
 
     print("\nFiltering OIERDB records...")
@@ -28,10 +28,7 @@ if __name__ == "__main__":
         filter(
             lambda oier: oier.ccf_level >= ccfLevel
             and (not config.strict or len(oier.records) == len(prizes))
-            and all(
-                any(record.check(*prize) for record in oier.records)
-                for prize in prizes
-            ),
+            and all(any(record.check(*prize) for record in oier.records) for prize in prizes),
             oierdb.oiers,
         )
     )
