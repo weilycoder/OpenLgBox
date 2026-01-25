@@ -1,7 +1,8 @@
 import json
-import requests
 
 from typing import Any, Optional
+
+import requests
 
 from bs4 import BeautifulSoup
 
