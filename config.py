@@ -6,8 +6,6 @@ try:
 except FileNotFoundError:
     config = {}
 
-strict = config.get("strict", False)
-
 uid = config.get("uid")
 client_id = config.get("client_id")
 oierdb_result = config.get("oierdb_result")
