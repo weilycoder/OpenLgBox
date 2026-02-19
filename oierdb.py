@@ -22,6 +22,7 @@ class Record(object):
     def __repr__(self):
         return (
             f"Record(name={self.contest}, "
+            f"year={self.year}, "
             f"score={self.score}, "
             f"rank={self.rank}, "
             f"province={self.province}, "
